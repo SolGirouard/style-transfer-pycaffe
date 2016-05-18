@@ -1,5 +1,11 @@
 # style-transfer
 
+## Deficiencies
+
+At the time of this writing, the python interface to caffe doesn't support multi-gpu computation. 
+
+Run time on an AWS g2.2xlarge instance is roughly 1hr for 1k iterations.
+
 ## Requirements
 
  - Python >= 2.7
@@ -8,7 +14,7 @@
 
 CUDA will enable GPU-based computation in Caffe.
 
-## Download
+## Example 
 
 To run the code, you must have Caffe installed and the appropriate Python bindings in your `PYTHONPATH` environment variable. Detailed installation instructions for Caffe can be found [here](http://caffe.berkeleyvision.org/installation.html).
 
