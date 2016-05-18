@@ -330,7 +330,7 @@ class StyleTransfer(object):
         data = self.net.blobs["data"].data
         img_out = self.transformer.deprocess("data", data)
         return img_out
-    
+
     def _rescale_net(self, img):
         """
             Rescales the network to fit a particular image.
@@ -377,7 +377,7 @@ class StyleTransfer(object):
 
         self.grad_iter = 0
         self.pbar = pb.ProgressBar()
-        self.pbar.widgets = ["Optimizing: ", pb.Percentage(), 
+        self.pbar.widgets = ["Optimizing: ", pb.Percentage(),
                              " ", pb.Bar(marker=pb.AnimatedMarker()),
                              " ", pb.ETA()]
         self.pbar.maxval = max_iter
@@ -398,7 +398,7 @@ class StyleTransfer(object):
         """
 
         # assume that convnet input is square
-        orig_dim = min(self.net.blobs["data"].shape[2:])
+        orig_dim = min(self.net.blobs["data"].data.shape[2:])
 
         # rescale the images
         scale = max(length / float(max(img_style.shape[:2])),
@@ -486,7 +486,7 @@ def main(args):
     img_style = caffe.io.load_image(args.style_img)
     img_content = caffe.io.load_image(args.content_img)
     logging.info("Successfully loaded images.")
-    
+
     # artistic style class
     use_pbar = not args.verbose
     st = StyleTransfer(args.model.lower(), use_pbar=use_pbar)
@@ -494,8 +494,8 @@ def main(args):
 
     # perform style transfer
     start = timeit.default_timer()
-    n_iters = st.transfer_style(img_style, img_content, length=args.length, 
-                                init=args.init, ratio=np.float(args.ratio), 
+    n_iters = st.transfer_style(img_style, img_content, length=args.length,
+                                init=args.init, ratio=np.float(args.ratio),
                                 n_iter=args.num_iters, verbose=args.verbose)
     end = timeit.default_timer()
     logging.info("Ran {0} iterations in {1:.0f}s.".format(n_iters, end-start))
@@ -505,8 +505,8 @@ def main(args):
     if args.output is not None:
         out_path = args.output
     else:
-        out_path_fmt = (os.path.splitext(os.path.split(args.content_img)[1])[0], 
-                        os.path.splitext(os.path.split(args.style_img)[1])[0], 
+        out_path_fmt = (os.path.splitext(os.path.split(args.content_img)[1])[0],
+                        os.path.splitext(os.path.split(args.style_img)[1])[0],
                         args.model, args.init, args.ratio, args.num_iters)
         out_path = "outputs/{0}-{1}-{2}-{3}-{4}-{5}.jpg".format(*out_path_fmt)
 
