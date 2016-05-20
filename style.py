@@ -32,7 +32,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import argparse
 import logging
 import os
-import sys
 import timeit
 
 # library imports
@@ -382,8 +381,8 @@ class StyleTransfer(object):
                              " ", pb.ETA()]
         self.pbar.maxval = max_iter
 
-    def transfer_style(self, img_style, img_content, length=512, ratio=1e5,
-                       n_iter=512, init="-1", verbose=False, callback=None):
+    def transfer_style(self, img_style, img_content, length=512, ratio=1e4,
+                       n_iter=512, init="mixed", verbose=False, callback=None):
         """
             Transfers the style of the artwork to the input image.
 
