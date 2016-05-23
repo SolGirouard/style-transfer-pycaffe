@@ -89,7 +89,7 @@ parser.add_argument("-c", "--content-img", type=str, required=True, help="input 
 parser.add_argument("-g", "--gpu-id", default=0, type=int, required=False, help="GPU device number")
 parser.add_argument("-m", "--model", default="vgg16", type=str, required=False, help="model to use")
 parser.add_argument("-i", "--init", default="content", type=str, required=False, help="initialization strategy")
-parser.add_argument("-r", "--ratio", default="1e4", type=str, required=False, help="style-to-content ratio")
+parser.add_argument("-r", "--ratio", default="1e8", type=str, required=False, help="style-to-content ratio")
 parser.add_argument("-n", "--num-iters", default=512, type=int, required=False, help="L-BFGS iterations")
 parser.add_argument("-l", "--length", default=512, type=float, required=False, help="maximum image length")
 parser.add_argument("-v", "--verbose", action="store_true", required=False, help="print minimization outputs")
@@ -381,7 +381,7 @@ class StyleTransfer(object):
                              " ", pb.ETA()]
         self.pbar.maxval = max_iter
 
-    def transfer_style(self, img_style, img_content, length=512, ratio=1e4,
+    def transfer_style(self, img_style, img_content, length=512, ratio=1e8,
                        n_iter=512, init="mixed", verbose=False, callback=None):
         """
             Transfers the style of the artwork to the input image.
